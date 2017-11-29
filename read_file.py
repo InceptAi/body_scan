@@ -3,6 +3,8 @@
 import numpy as np
 import os
 import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 def read_header(infile):
     """Read image header (first 512 bytes)
@@ -131,16 +133,18 @@ def read_data(infile):
         return real, imag
 
 
-matplotlib.rc('animation', html='html5')
+#matplotlib.rc('animation', html='html5')
 
 def plot_image(path):
     data = read_data(path)
-    fig = matplotlib.pyplot.figure(figsize = (16,16))
+    fig = plt.figure(figsize = (16,16))
     ax = fig.add_subplot(111)
     def animate(i):
         im = ax.imshow(np.flipud(data[:,:,i].transpose()), cmap = 'viridis')
         return [im]
-    return matplotlib.animation.FuncAnimation(fig, animate, frames=range(0,data.shape[2]), interval=200, blit=True)
+    return animation.FuncAnimation(fig, animate, frames=range(0,data.shape[2]), interval=200, blit=True)
 
 
-plot_image("../dhs/sample/00360f79fd6e02781457eda48f85da90.aps")
+#plot_image("../dhs/sample/00360f79fd6e02781457eda48f85da90.aps")
+foo = plot_image("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
+plt.show()
