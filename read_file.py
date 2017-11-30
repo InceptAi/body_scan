@@ -113,7 +113,7 @@ def read_data(infile):
         elif(h['word_type']==4): #uint16
             data = np.fromfile(fid, dtype = np.uint16, count = nx * ny * nt)
         data = data * h['data_scale_factor'] #scaling factor
-        data = data.reshape(nx, ny, nt, order='F').copy() #make N-d image
+        data = data.reshape(nx, ny, nt, order='F').copy() #make N-d image 
     elif extension == '.a3d':
         if(h['word_type']==7): #float32
             data = np.fromfile(fid, dtype = np.float32, count = nx * ny * nt)
@@ -144,7 +144,35 @@ def plot_image(path):
         return [im]
     return animation.FuncAnimation(fig, animate, frames=range(0,data.shape[2]), interval=200, blit=True)
 
+def plot_image2(path):
+    data = read_data(path)
+    return plot_raw(data, 'viridis')
+
+def plot_raw(data_array, cmap_string):
+    fig = plt.figure(figsize = (16,16))
+    print("shape = {}".format(str(data_array.shape)))
+    ax = fig.add_subplot(111)
+    def animate(i):
+        im = ax.imshow(np.flipud(data_array[:,:,i].transpose()), cmap = 'viridis')
+        return [im]
+    return animation.FuncAnimation(fig, animate, frames=range(0,data_array.shape[2]), interval=200, blit=True)
+
+
 
 #plot_image("../dhs/sample/00360f79fd6e02781457eda48f85da90.aps")
-foo = plot_image("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
+#foo = plot_image("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
+#plt.show()
+data = read_data("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
+#x = plot_image2("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
+min_val = np.amin(data)
+max_val = np.amax(data)
+print("min val = {}, max val = {}".format(min_val, max_val))
+data = data / max_val
+min_val = np.amin(data)
+max_val = np.amax(data)
+print("min val = {}, max val = {}".format(min_val, max_val))
+
+data_mask = np.zeros_like(data)
+data_mask[data > 0.1] = 0.8 
+x = plot_raw(data_mask, 'viridis')
 plt.show()
