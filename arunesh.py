@@ -162,17 +162,17 @@ def plot_raw(data_array, cmap_string):
 #plot_image("../dhs/sample/00360f79fd6e02781457eda48f85da90.aps")
 #foo = plot_image("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
 #plt.show()
-#data = read_data("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
+data = read_data("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
 #x = plot_image2("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
-#min_val = np.amin(data)
-#max_val = np.amax(data)
-#print("min val = {}, max val = {}".format(min_val, max_val))
-#data = data / max_val
-#min_val = np.amin(data)
-#max_val = np.amax(data)
-#print("min val = {}, max val = {}".format(min_val, max_val))
+min_val = np.amin(data)
+max_val = np.amax(data)
+print("min val = {}, max val = {}".format(min_val, max_val))
+data = data / max_val
+min_val = np.amin(data)
+max_val = np.amax(data)
+print("min val = {}, max val = {}".format(min_val, max_val))
 
-#data_mask = np.zeros_like(data)
-#data_mask[data > 0.1] = 0.8 
-#x = plot_raw(data_mask, 'viridis')
-#plt.show()
+data_mask = np.zeros_like(data)
+data_mask[data > 0.1] = 0.8 
+x = plot_raw(data_mask, 'viridis')
+plt.show()
