@@ -39,24 +39,28 @@
 #----------------------------------------------------------------------------------------
 INPUT_FOLDER = '/home/vivek/Work/kaggle/dhs/data/stage1'
 PREPROCESSED_DATA_FOLDER = '/home/vivek/Work/kaggle/dhs/preprocessed/'
+PREDICTION_DATA_FOLDER = '/home/vivek/Work/kaggle/dhs/predict/'
 STAGE1_LABELS = '/home/vivek/Work/kaggle/dhs/data/stage1_labels.csv'
 #THREAT_ZONE = 1
 BATCH_SIZE = 16
 EXAMPLES_PER_SUBJECT = 182
+SAMPLES_PER_BATCH = 3000
 
 FILE_LIST = []
-TRAIN_TEST_SPLIT_RATIO = 0.2
+TRAIN_TEST_SPLIT_RATIO = 0.1
 #TRAIN_SET_FILE_LIST = []
 #TEST_SET_FILE_LIST = []
 
 IMAGE_DIM = 250
-LEARNING_RATE = 1e-3
+LEARNING_RATE = 1e-2
 N_TRAIN_STEPS = 1
 TRAIN_PATH = '/home/vivek/Work/kaggle/dhs/train/'
 MODEL_PATH = '/home/vivek/Work/kaggle/dhs/model/'
+MODEL_PATH_FULL = '/home/vivek/Work/kaggle/dhs/model-full/'
 #MODEL_NAME = ('tsa-{}-lr-{}-{}-{}-tz-{}'.format('alexnet-v0.1', LEARNING_RATE, IMAGE_DIM, 
 #                                                IMAGE_DIM, THREAT_ZONE )) 
 COLORMAP = 'pink'
-APS_FILE_NAME = '/home/vivek/Work/kaggle/dhs/data/stage1/00360f79fd6e02781457eda48f85da90.aps'
+#APS_FILE_NAME = '/home/vivek/Work/kaggle/dhs/data/stage1/0043db5e8c819bffc15261b1f1ac5e42.aps'
+APS_FILE_NAME = '/home/vivek/Work/kaggle/dhs/data/stage1/0d10b14405f0443be67a75554da778a0.aps'
 BODY_ZONES = '/home/vivek/Work/kaggle/dhs/data/body_zones.png'
 THREAT_LABELS = '/home/vivek/Work/kaggle/dhs/data/stage1_labels.csv'

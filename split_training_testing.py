@@ -23,14 +23,18 @@ def get_train_test_file_list(threat_zone):
         print('file list:{0}'.format(len(FILE_LIST)))
         if (len(FILE_LIST) == 1):
             train_test_split = 1
+            train_set = FILE_LIST
+            test_set = FILE_LIST
+            print('Train/Test Split -> {} file(s) of {} used for testing'.format( 
+                len(FILE_LIST), len(FILE_LIST)))
         else:    
             train_test_split = len(FILE_LIST) - \
                            max(int(len(FILE_LIST)*TRAIN_TEST_SPLIT_RATIO),1)
-        train_set = FILE_LIST[:train_test_split]
-        test_set = FILE_LIST[train_test_split:]
-        print('Train/Test Split -> {} file(s) of {} used for testing'.format( 
-              len(FILE_LIST) - train_test_split, len(FILE_LIST)))
+            train_set = FILE_LIST[:train_test_split]
+            test_set = FILE_LIST[train_test_split:]
+            print('Train/Test Split -> {} file(s) of {} used for testing'.format( 
+                len(FILE_LIST) - train_test_split, len(FILE_LIST)))
     return train_set, test_set
         
 # unit test ----------------------------
-#get_train_test_file_list()
+foo, bar = get_train_test_file_list(1)

@@ -5,7 +5,7 @@ import os
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
+from constants import *
 def read_header(infile):
     """Read image header (first 512 bytes)
     """
@@ -158,9 +158,10 @@ def plot_raw(data_array, cmap_string):
     return animation.FuncAnimation(fig, animate, frames=range(0,data_array.shape[2]), interval=200, blit=True)
 
 
-
+#foo = plot_image(APS_FILE_NAME)
+#plt.show()
 #plot_image("../dhs/sample/00360f79fd6e02781457eda48f85da90.aps")
-#foo = plot_image("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
+#foo = plot_image("/home/vivek/Work/kaggle/dhs/data/stage1/0043db5e8c819bffc15261b1f1ac5e42.aps")
 #plt.show()
 #data = read_data("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")
 #x = plot_image2("/home/vivek/Work/kaggle/dhs/data/stage1/fdb996a779e5d65d043eaa160ec2f09f.aps")

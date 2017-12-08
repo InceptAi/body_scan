@@ -10,7 +10,6 @@ from split_training_testing import *
 #                  label_batch - a batch of labels related to the feature_batch
 #
 #---------------------------------------------------------------------------------------
-
 def input_pipeline(filename, path):
 
     preprocessed_tz_scans = []
@@ -54,3 +53,10 @@ for f_in in test_set:
                                                 len(feature_batch[0][0])))
     print (' -> labels shape   {}:{}'.format(len(label_batch), len(label_batch[0])))
 '''
+#feature_batch, label_batch = input_pipeline(filename="preprocessed_TSA_scans-tz17-250-250-b10.npy", path=PREPROCESSED_DATA_FOLDER)
+#print (' -> features shape {}:{}:{}'.format(len(feature_batch), 
+#                        len(feature_batch[0]), 
+#                        len(feature_batch[0][0])))
+#print (' -> labels shape   {}:{}'.format(len(label_batch), len(label_batch[0])))
+#print (' -> labels {}'.format(label_batch))
+#print (' -> labels {}'.format(feature_batch[0]))
