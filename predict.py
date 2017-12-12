@@ -35,7 +35,7 @@ def predict_threat_probability(input_subject_id, threat_zone=1):
     # instantiate model
     model = alexnet(IMAGE_DIM, IMAGE_DIM, LEARNING_RATE, model_name)
     current_model_path = MODEL_PATH + model_name + ".tflearn"
-    print ('current path {0}'.format(current_model_path))
+    #print ('current path {0}'.format(current_model_path))
     model.load(current_model_path)
     
     # get train and test batches
@@ -53,9 +53,9 @@ def predict_threat_probability(input_subject_id, threat_zone=1):
             val_labels = np.concatenate((tmp_label_batch, val_labels), axis=0)
     
     val_features = val_features.reshape(-1, IMAGE_DIM, IMAGE_DIM, 1)
-    print ("input features shape : {}".format(val_features.shape))
+    #print ("input features shape : {}".format(val_features.shape))
     prediction = model.predict(val_features)
-    print ("prediction output shape : {}".format(prediction.shape))
+    #print ("prediction output shape : {}".format(prediction.shape))
     #print ("File {0}".format(input_aps_file))
     print ("prediction {0}".format(prediction))
 
@@ -73,4 +73,5 @@ if not opts.input_subject_id:
     op.print_help()
     op.error("Input subject id is needed")
 
+tf.logging.set_verbosity(tf.logging.ERROR)
 predict_threat_probability(input_subject_id=opts.input_subject_id, threat_zone=opts.threat_zone)

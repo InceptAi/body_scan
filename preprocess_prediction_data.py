@@ -37,10 +37,10 @@ def preprocess_prediction_data(raw_subject_name):
     for subject in SUBJECT_LIST:
 
         # read in the images
-        print('--------------------------------------------------------------')
-        print('t+> {:5.3f} |Reading images for subject #: {}'.format(timer()-start_time, 
-                                                                     subject))
-        print('--------------------------------------------------------------')
+        #print('--------------------------------------------------------------')
+        #print('t+> {:5.3f} |Reading images for subject #: {}'.format(timer()-start_time, 
+        #                                                             subject))
+        #print('--------------------------------------------------------------')
         images = read_data(INPUT_FOLDER + '/' + subject + '.aps')
 
         # transpose so that the slice is the first dimension shape(16, 620, 512)
@@ -59,67 +59,67 @@ def preprocess_prediction_data(raw_subject_name):
 
             for img_num, img in enumerate(images):
 
-                print('Threat Zone:Image -> {}:{}'.format(tz_num, img_num))
-                print('Threat Zone Label -> {}'.format(label))
+                #print('Threat Zone:Image -> {}:{}'.format(tz_num, img_num))
+                #print('Threat Zone Label -> {}'.format(label))
                 
                 if threat_zone[img_num] is not None:
 
                     # correct the orientation of the image
-                    print('-> reorienting base image') 
+                    #print('-> reorienting base image') 
                     base_img = np.flipud(img)
-                    print('-> shape {}|mean={}'.format(base_img.shape, 
-                                                       base_img.mean()))
+                    #print('-> shape {}|mean={}'.format(base_img.shape, 
+                    #                                   base_img.mean()))
 
                     # convert to grayscale
-                    print('-> converting to grayscale')
+                    #print('-> converting to grayscale')
                     rescaled_img = tsa.convert_to_grayscale(base_img)
-                    print('-> shape {}|mean={}'.format(rescaled_img.shape, 
-                                                       rescaled_img.mean()))
+                    #print('-> shape {}|mean={}'.format(rescaled_img.shape, 
+                    #                                   rescaled_img.mean()))
 
                     # spread the spectrum to improve contrast
-                    print('-> spreading spectrum')
+                    #print('-> spreading spectrum')
                     high_contrast_img = tsa.spread_spectrum(rescaled_img)
-                    print('-> shape {}|mean={}'.format(high_contrast_img.shape,
-                                                       high_contrast_img.mean()))
+                    #print('-> shape {}|mean={}'.format(high_contrast_img.shape,
+                    #                                   high_contrast_img.mean()))
 
                     # get the masked image
-                    print('-> masking image')
+                    #print('-> masking image')
                     masked_img = tsa.roi(high_contrast_img, threat_zone[img_num])
-                    print('-> shape {}|mean={}'.format(masked_img.shape, 
-                                                       masked_img.mean()))
+                    #print('-> shape {}|mean={}'.format(masked_img.shape, 
+                    #                                   masked_img.mean()))
 
                     # crop the image
-                    print('-> cropping image')
+                    #print('-> cropping image')
                     cropped_img = tsa.crop(masked_img, crop_dims[img_num])
-                    print('-> shape {}|mean={}'.format(cropped_img.shape, 
-                                                       cropped_img.mean()))
+                    #print('-> shape {}|mean={}'.format(cropped_img.shape, 
+                    #                                   cropped_img.mean()))
 
                     # normalize the image
-                    print('-> normalizing image')
+                    #print('-> normalizing image')
                     normalized_img = tsa.normalize(cropped_img)
-                    print('-> shape {}|mean={}'.format(normalized_img.shape, 
-                                                       normalized_img.mean()))
+                    #print('-> shape {}|mean={}'.format(normalized_img.shape, 
+                    #                                  normalized_img.mean()))
 
                     # zero center the image
-                    print('-> zero centering')
+                    #print('-> zero centering')
                     zero_centered_img = tsa.zero_center(normalized_img)
-                    print('-> shape {}|mean={}'.format(zero_centered_img.shape, 
-                                                       zero_centered_img.mean()))
+                    #print('-> shape {}|mean={}'.format(zero_centered_img.shape, 
+                    #                                   zero_centered_img.mean()))
 
                     # append the features and labels to this threat zone's example array
-                    print ('-> appending example to threat zone {}'.format(tz_num))
+                    #print ('-> appending img_num{} to threat zone {}'.format(img_num, tz_num))
                     threat_zone_examples.append([[tz_num], zero_centered_img, label])
-                    print ('-> shape {:d}:{:d}:{:d}:{:d}:{:d}:{:d}'.format(
-                                                         len(threat_zone_examples),
-                                                         len(threat_zone_examples[0]),
-                                                         len(threat_zone_examples[0][0]),
-                                                         len(threat_zone_examples[0][1][0]),
-                                                         len(threat_zone_examples[0][1][1]),
-                                                         len(threat_zone_examples[0][2])))
-                else:
-                    print('-> No view of tz:{} in img:{}. Skipping to next...'.format( 
-                                tz_num, img_num))
-                print('------------------------------------------------')
+                    #print ('-> shape {:d}:{:d}:{:d}:{:d}:{:d}:{:d}'.format(
+                    #                                     len(threat_zone_examples),
+                    #                                     len(threat_zone_examples[0]),
+                    #                                     len(threat_zone_examples[0][0]),
+                    #                                     len(threat_zone_examples[0][1][0]),
+                    #                                     len(threat_zone_examples[0][1][1]),
+                    #                                     len(threat_zone_examples[0][2])))
+                #else:
+                    #print('-> No view of tz:{} in img:{}. Skipping to next...'.format( 
+                    #            tz_num, img_num))
+                #print('------------------------------------------------')
 
         # each subject gets EXAMPLES_PER_SUBJECT number of examples (182 to be exact, 
         # so this section just writes out the the data once there is a full minibatch 
@@ -130,12 +130,12 @@ def preprocess_prediction_data(raw_subject_name):
                 tz_examples_to_save = []
 
                 # write out the batch and reset
-                print(' -> writing: ' + PREDICTION_DATA_FOLDER + 
-                                        'preprocessed_TSA_scans-tz{}-{}-{}-b{}.npy'.format( 
-                                        tz_num+1,
-                                        len(threat_zone_examples[0][1][0]),
-                                        len(threat_zone_examples[0][1][1]), 
-                                        batch_num))
+                #print(' -> writing: ' + PREDICTION_DATA_FOLDER + 
+                #                        'preprocessed_TSA_scans-tz{}-{}-{}-b{}.npy'.format( 
+                #                        tz_num+1,
+                #                        len(threat_zone_examples[0][1][0]),
+                #                        len(threat_zone_examples[0][1][1]), 
+                #                        batch_num))
 
                 # get this tz's examples
                 tz_examples = [example for example in threat_zone_examples if example[0] == 
@@ -169,11 +169,11 @@ def preprocess_prediction_data(raw_subject_name):
             tz_examples_to_save = []
 
             # write out the batch and reset
-            print(' -> writing: ' + PREDICTION_DATA_FOLDER 
-                    + 'preprocessed_TSA_scans-tz{}-{}-{}-b{}.npy'.format(tz_num+1, 
-                      len(threat_zone_examples[0][1][0]),
-                      len(threat_zone_examples[0][1][1]), 
-                                                                                                                  batch_num))
+            #print(' -> writing: ' + PREDICTION_DATA_FOLDER 
+            #        + 'preprocessed_TSA_scans-tz{}-{}-{}-b{}.npy'.format(tz_num+1, 
+            #          len(threat_zone_examples[0][1][0]),
+            #          len(threat_zone_examples[0][1][1]), 
+            #           batch_num))
 
             # get this tz's examples
             tz_examples = [example for example in threat_zone_examples if example[0] == 
@@ -191,4 +191,4 @@ def preprocess_prediction_data(raw_subject_name):
                                                      batch_num), 
                                                      tz_examples_to_save)
 # unit test ---------------------------------------
-#preprocess_prediction_data()
+#preprocess_prediction_data('00360f79fd6e02781457eda48f85da90')
