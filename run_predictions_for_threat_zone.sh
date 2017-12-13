@@ -5,7 +5,8 @@ fi
 THREAT_ZONE=$1
 POSITIVE=$2
 ZONE_GREP="Zone${THREAT_ZONE},${POSITIVE}"
-cat /home/vivek/Work/kaggle/dhs/data/stage1_labels.csv  | grep $ZONE_GREP | cut -d "_" -f 1 > /tmp/zone_${THREAT_ZONE}_${POSITIVE}
+MAX_SUBJECTS=100
+cat /home/vivek/Work/kaggle/dhs/data/stage1_labels.csv  | grep $ZONE_GREP | cut -d "_" -f 1 | head -n $MAX_SUBJECTS > /tmp/zone_${THREAT_ZONE}_${POSITIVE}
 python3 predict_batch.py -t $THREAT_ZONE -f /tmp/zone_${THREAT_ZONE}_${POSITIVE} > output_predictions_${THREAT_ZONE}_${POSITIVE}
 #POSITIVE_SUBJECTS=`cat /home/vivek/Work/kaggle/dhs/data/stage1_labels.csv  | grep $ZONE_GREP | cut -d "_" -f 1`
 #echo $ZONE_GREP

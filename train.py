@@ -60,7 +60,7 @@ def train_conv_net(threat_zone=1):
             #print ('Feature Batch Shape ->', feature_batch.shape)                
                 
             # run the fit operation
-            model.fit({'features': feature_batch}, {'labels': label_batch}, n_epoch=100, 
+            model.fit({'features': feature_batch}, {'labels': label_batch}, n_epoch=60, 
                       validation_set=({'features': val_features}, {'labels': val_labels}), 
                       shuffle=True, snapshot_step=None, show_metric=True, snapshot_epoch=False, 
                       run_id=model_name)

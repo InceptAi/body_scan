@@ -178,7 +178,7 @@ def save_data(batch_num, threat_zone_positives, threat_zone_negatives):
 
         # get -ves, only max len(threat_zone_positives)
         tz_examples_negatives = [example for example in threat_zone_negatives if example[0] == [tz_num]]
-        max_negatives = len(tz_examples_positives)
+        max_negatives = len(tz_examples_positives) * 2
         if len(tz_examples_negatives) > max_negatives:
             np.random.shuffle(tz_examples_negatives)
             tz_examples_negatives = tz_examples_negatives[:max_negatives]
